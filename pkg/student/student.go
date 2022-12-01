@@ -10,16 +10,7 @@ import (
 	"strings"
 )
 
-type Student struct {
-	Name string
-
-	Age int
-
-	Grade int
-}
-
-func StudentPlay() {
-	MapStudent := make(map[string]*Student, 0)
+func StudentPlay(m map[string]*storage.Student) {
 	var in = bufio.NewReader(os.Stdin)
 	for i, err := in.ReadString('\n'); err != io.EOF; i, err = in.ReadString('\n') {
 		sliseStruct := strings.Fields(i)
@@ -36,9 +27,9 @@ func StudentPlay() {
 			fmt.Print("Ошибка при обработке возраста студента или его номера курса ! Пожалуйста, попробуйте снова...\n")
 			continue
 		}
-		student := Student{studentName, studentAge, studentGrade}
-		if err := storage.Get(student, MapStudent); err == false {
-			storage.Put(MapStudent)
+		student := storage.Student{studentName, studentAge, studentGrade}
+		if err := student.Get(m); err == false {
+			student.Put(m)
 		} else {
 			fmt.Print("Студент с таким именем уже есть в хранилище! Попробуйте снова...\n")
 		}

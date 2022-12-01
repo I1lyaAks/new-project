@@ -1,17 +1,24 @@
 package storage
 
 import (
-	"myProject/pkg/student"
 	"strconv"
 )
 
-func (s student.Student) Info() string {
+type Student struct {
+	Name string
+
+	Age int
+
+	Grade int
+}
+
+func (s Student) Info() string {
 	return s.Name + " " + strconv.Itoa(s.Age) + " " + strconv.Itoa(s.Grade)
 }
-func (s *student.Student) Put(m map[string]*student.Student) {
+func (s *Student) Put(m map[string]*Student) {
 	m[s.Name] = s
 }
-func (s student.Student) Get(m map[string]*student.Student) bool {
+func (s Student) Get(m map[string]*Student) bool {
 	_, x := m[s.Name]
 	return x
 }
